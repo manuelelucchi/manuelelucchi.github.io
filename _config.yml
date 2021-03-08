@@ -11,7 +11,7 @@ baseurl: ''
 lang: en-US
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Shanghai
+timezone: Europe/Rome
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
@@ -20,9 +20,7 @@ title: Manuele Lucchi                          # the main title
 tagline: Personal Website   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, portfolio, sidebar,
-  bootstrap Jekyll theme with responsive web design
-  and focuses on text presentation.
+  To do
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: ''
@@ -37,7 +35,7 @@ twitter:
 
 social:
   name: Manuele Lucchi                  # it will shows as the copyright owner in Footer
-  email: manuele.lucchi@studenti.unimi.i             # change to your email address
+  email: manuele.lucchi@studenti.unimi.it             # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/manuelelucchi      # change to your twitter homepage
@@ -81,7 +79,7 @@ theme_mode:   # [light|dark]
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/commons/avatar.jpg
+avatar: https://avatars2.githubusercontent.com/u/17146198?s=400&u=5c310be9202a93bacf462dcc6a9524e0101b4774&v=4
 
 # boolean type, the global switch for ToC in posts.
 toc: true
