@@ -15,9 +15,9 @@ timezone: Asia/Shanghai
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
-title: Chirpy                          # the main title
+title: Manuele Lucchi                          # the main title
 
-tagline: A text-focused Jekyll theme   # it will display as the sub-title
+tagline: Personal Website   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
@@ -27,21 +27,21 @@ description: >-                        # used by seo meta and the atom feed
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: ''
 
-author: your_full_name                  # change to your full name
+author: Manuele Lucchi                  # change to your full name
 
 github:
-  username: github_username             # change to your github username
+  username: manuelelucchi             # change to your github username
 
 twitter:
-  username: twitter_username            # change to your twitter username
+  username: manuelelucchi            # change to your twitter username
 
 social:
-  name: your_full_name                  # it will shows as the copyright owner in Footer
-  email: example@doamin.com             # change to your email address
+  name: Manuele Lucchi                  # it will shows as the copyright owner in Footer
+  email: manuele.lucchi@studenti.unimi.i             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username      # change to your twitter homepage
-    - https://github.com/username       # change to your github homepage
+    - https://twitter.com/manuelelucchi      # change to your twitter homepage
+    - https://github.com/manuelelucchi      # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
