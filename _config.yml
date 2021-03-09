@@ -17,7 +17,7 @@ timezone: Europe/Rome
 # --------------------------
 title: Manuele Lucchi                          # the main title
 
-tagline: Personal Website   # it will display as the sub-title
+tagline: Developer and tech enthusiast   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   To do
