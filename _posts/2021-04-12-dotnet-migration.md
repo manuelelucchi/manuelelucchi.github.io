@@ -39,10 +39,19 @@ From now on, they can update every project at once with a click in the nuget exp
 With this and moving some binaries in better places, the projects now don't need anything besides Visual Studio to run. But it's still too much complex in some things, like manually copy new binaries versions to the versioning repository.
 
 ## Visual Studio 2017
+We then started to port everything we could to Standard. It's not just a re-targeting, .NET Standard supports only the new SDK Style projects format. But Microsoft blessed use with [try-convert](https://github.com/dotnet/try-convert), a tool that converts old framework projects into .NET Standard (if they don't contain windows only code) or .NET 5 projects. It works pretty well and without any downside many projects were converted. 
 
-## Multi targeting
+After achieving so much in the Services/Data/Domain Layers, I moved my attention to the presentation. So, I tried to convert a WPF lib to the new SDK Style project, while maintaining 4.7.2 as target framework. Using try-convert, it converts the project to the new format, targeting .NET 5 and removing all the WPF direct references replacing them with `<useWpf>true</useWpf>`. This last tag and more generally the concept of "workloads" are really useful to keep everything clean and updated (you can use them with WPF, WinForms and soon Maui). I just had to retarget it back to .NET 4.7.2 (since they were not ready to move to .NET 5). Everything worked perfectly. _On Visual Studio 2019_.
 
-## Nuget Packages
+That's right, `<useWpf>` used with .NET Framework and Visual Studio 2017 doesn't work. But it's not like it gives you an error, it just doesn't auto compile xaml files and link the correct assemblies. I even opened an [issue](https://github.com/dotnet/wpf/issues/4373), it seems like it's a SDK version issue. So, until the team moves to Visual Studio 2019, the presentation projects will remain _in the past_.
+
+## Nuget Packages and multi targeting
+Previously I said there were some projects shared between the two solutions, but only contained in solution B and used by A by copying the DLLs. 
+
+That's of course not the greatest solution, so I put them in a separate solution (called __C__ from now on) and added each project as a nuget package in a private server. The procedure is extremely straightforward (you just need a nuget.config with the source you want to push the packages to and to check "generate nuget packages on build on the proj properties") and I just had to change from direct reference to the nuget. 
+
+I took the initiative and ported these projects to Standard 2.0 (they were in the bottom layer, so they were almost only platform-agnostic code), but then a problem arises. The old version of the products (1.x) still targets NET 4.5.2 and they need to update the projects of C with changes valid for both versions (1.x and 2.x). Also, the 1.x project uses some third party nuget of a specific version, that have been updated in the 2.x. Thankfully, the new .NET project system is really awesome and allows multi-targeting, perfectly handling this really common scenario.
+
 
 ## IoC
 
