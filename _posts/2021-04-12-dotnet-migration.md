@@ -1,5 +1,5 @@
 ---
-title: A dotnet migration story
+title: A dotnet migration story, part 1
 author: Manuele Lucchi
 date: 2021-04-12 9:25:00 +0800
 categories: [Projects, Libraries]
@@ -7,10 +7,10 @@ tags: [dotnet, csharp, netframework, wpf]
 math: true
 mermaid: true
 ---
-For the last couple of months, one of my tasks was to gradually migrate 2 big WPF solutions from an old workflow to a more recent one. That includes upgrading the runtime version (from .NET Framework 4.5.2 to possibly .NET 5) but also the CI/CD and many other things. This article sums up the (not so bad) experience.
+For the last couple of months, one of my tasks was to gradually migrate 2 big [WPF](https://docs.microsoft.com/en-us/visualstudio/designers/getting-started-with-wpf?view=vs-2019) solutions from an old workflow to a more recent one. That includes upgrading the runtime version (from .NET Framework 4.5.2 to possibly .NET 5) but also the CI/CD and many other things. This article is the first part of the (not so bad) experience.
 
 ## What's there?
-When I started digging on the projects there were 2 solutions (One for each product) with respectively 32 and 70 C# projects and that we'll call product __A__ and __B__ through the article. Most of them were libraries linked to the main executable (a WPF app) and some manual testing applications and basically all targeted .NET 4.5.2 (some 4.5). There were some references to COM components, OCX libraries and native DLLs.  
+When I started digging on the projects there were 2 solutions (One for each product) with respectively 32 and 70 C# projects and that we'll call product __A__ and __B__ through the article. Most of them were libraries linked to the main executable and basically all of them targeted .NET 4.5.2 (some 4.5). There were also some references to COM components, OCX libraries and native DLLs.  
 
 The solutions were structured in a pretty common way, with a folder for each layer: Presentation, Services, Data, Domain. Some of the projects of B where in common with A, but they had to manually copy the updated binaries. This set is internally called "Framework".
 
@@ -56,11 +56,8 @@ That's of course not the greatest solution, so I put them in a separate solution
 
 I took the initiative and ported these projects to Standard 2.0 (they were in the bottom layer, so they were almost only platform-agnostic code), but then a problem arises. The old version of the products (1.x) still targets NET 4.5.2 and they need to update the projects of C with changes valid for both versions (1.x and 2.x). Also, the 1.x project uses some third party nuget of a specific version, that have been updated in the 2.x. Thankfully, the new .NET project system is really awesome and allows multi-targeting, perfectly handling this really common scenario.
 
-## Inversion of Control and Logging
-When I started working on this migration, they were massively using IoC, but using a very limited custom implementation, with no support for anything else besides singletons and no constructor injections. It was basically the same as using `.Instance` as a static method to get the singleton. So I took an help from the [Microsoft.Toolkit.Mvvm](https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction) (that is based on Microsoft.Extensions.DependencyInjection) and started re-registering the services. Unfortunately I couldn't use anything else from the toolkit besides the IoC container, since DevExpress was already providing alternatives widely used into the project.
+## Summary and what's next
+All the previous improvements resulted in a 22% and 18% mean compilation time speedup respectively for the project A and a B, the removal of tens of files and dependencies and it sets the basis for the .NET 5 upgrade. But there's still a lot of work to do. 
 
-## Entity Framework Core
+.NET Core introduced or evolved a great number of awesome patterns and libraries. They lack a proper Inversion of Control and Dependency Injection library, they need to move away from a dead logging library (unfortunately dead some months after the beginning of the development), to pass from Entity Framework to EFCore and explore a more modern CI/CD and Unit Testing approaches. They also need the 2 projects (and others) to communicate, so probably using one between [SignalR](https://docs.microsoft.com/en-us/aspnet/core/signalr/introduction?view=aspnetcore-5.0) and [gRPC](https://docs.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-5.0). But most of these things requires one thing: __A complete upgrade to .NET 5__.
 
-## CI/CD
-
-## Unit Testing
